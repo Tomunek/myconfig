@@ -10,5 +10,5 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Put new .bashrc in home
-cp ./mybashrc ~/.bashrc
+cp ./bashrc ~/.bashrc
 cp ./bash_aliases ~/.bash_aliases
