@@ -7,9 +7,11 @@ RUN_NEOFETCH=1 # 0
 # Export paths
 EXPORT_PATHS=1 # 0
 # Force monochromatic prompt
-FORCE_MONO=0 # 0
+FORCE_MONO=0 # 1
+# Make text in prompt not bold (may look better on some machines)
+ANEMIC_PROMPT=0 # 1
 # Use shorter, more traditional prompt (only applies to color prompt)
-TRADITIONAL_PROMPT=0 # 0
+TRADITIONAL_PROMPT=0 # 1
 
 # If not running interactively, return
 case $- in
@@ -41,17 +43,21 @@ NORMAL="\e[0m"
 
 # Prompt
 INDICATOR="code=\$?; if [ \${code} = 0 ]; then echo \"${GREEN}0${NORMAL}\"; else echo \"${RED}\${code}\a${NORMAL}\"; fi"
-USER_MACHINE="${BOLDGREEN}\u${NORMAL}@${BOLDGREEN}\h${NORMAL}"
-CURRENT_PATH="${BOLDBLUE}\w${NORMAL}"
+if [ $ANEMIC_PROMPT -eq 1 ]; then
+	USER_MACHINE="${GREEN}\u${NORMAL}@${GREEN}\h${NORMAL}"
+	CURRENT_PATH="${BLUE}\w${NORMAL}"
+else
+	USER_MACHINE="${BOLDGREEN}\u${NORMAL}@${BOLDGREEN}\h${NORMAL}"
+	CURRENT_PATH="${BOLDBLUE}\w${NORMAL}"
+fi
 TIME="\t"
 if [ $TRADITIONAL_PROMPT -eq 1 ]; then
 	COLOR_PROMPT="${USER_MACHINE}:${CURRENT_PATH}\$ "
 else
 	COLOR_PROMPT="┏━[${USER_MACHINE}]━[${CURRENT_PATH}]━[${TIME}]━[\`${INDICATOR}\`]\n┗━\\$ "
 fi
-unset TRADITIONAL_PROMPT
-
 MONO_PROMPT="\u@\h:\w\$ "
+unset TRADITIONAL_PROMPT
 
 # If color prompt can be used, use it
 case "$TERM" in
