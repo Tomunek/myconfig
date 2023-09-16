@@ -2,7 +2,14 @@
 
 #TODO: extract all option switches to top of this file
 # CONFIG
+# Run neofetch when opening a terminal
 RUN_NEOFETCH=1 # 0
+# Export paths
+EXPORT_PATHS=1 # 0
+# Force monochromatic prompt
+FORCE_MONO=0 # 0
+# Use shorter, more traditional prompt (only applies to color prompt)
+TRADITIONAL_PROMPT=0 # 0
 
 # If not running interactively, return
 case $- in
@@ -34,10 +41,16 @@ NORMAL="\e[0m"
 
 # Prompt
 INDICATOR="code=\$?; if [ \${code} = 0 ]; then echo \"${GREEN}0${NORMAL}\"; else echo \"${RED}\${code}\a${NORMAL}\"; fi"
-COLOR_PROMPT="┏━[${BOLDGREEN}\u${NORMAL}@${BOLDGREEN}\h${NORMAL}]━[${BOLDBLUE}\w${NORMAL}]━[\t]━[\`${INDICATOR}\`]\n┗━\\$ "
-# Short prompt
-#COLOR_PROMPT="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
-#TODO: add sort prompt and mono prompt force switches
+USER_MACHINE="${BOLDGREEN}\u${NORMAL}@${BOLDGREEN}\h${NORMAL}"
+CURRENT_PATH="${BOLDBLUE}\w${NORMAL}"
+TIME="\t"
+if [ $TRADITIONAL_PROMPT -eq 1 ]; then
+	COLOR_PROMPT="${USER_MACHINE}:${CURRENT_PATH}\$ "
+else
+	COLOR_PROMPT="┏━[${USER_MACHINE}]━[${CURRENT_PATH}]━[${TIME}]━[\`${INDICATOR}\`]\n┗━\\$ "
+fi
+unset TRADITIONAL_PROMPT
+
 MONO_PROMPT="\u@\h:\w\$ "
 
 # If color prompt can be used, use it
@@ -45,6 +58,11 @@ case "$TERM" in
 	xterm-color|*-256color) PS1=${COLOR_PROMPT} ;;
 	*) PS1=${MONO_PROMPT} ;;
 esac
+
+if [ $FORCE_MONO -eq 1 ]; then
+	PS1=${MONO_PROMPT}
+fi
+unset FORCE_MONO
 
 # If this is xterm, set window title
 case "$TERM" in
@@ -72,8 +90,7 @@ else
 fi
 
 # Paths
-EXPORT_PATHS="yes"
-if [ $EXPORT_PATHS = "yes" ]; then
+if [ $EXPORT_PATHS -eq 1 ]; then
 	# Java and Maven
 	export JAVA_HOME="/usr/lib/jvm/jdk-17"
 	export PATH=$JAVA_HOME/bin:$PATH
@@ -86,3 +103,4 @@ unset EXPORT_PATHS
 if [ $RUN_NEOFETCH -eq 1 ]; then
 	neofetch
 fi
+unset RUN_NEOFETCH
