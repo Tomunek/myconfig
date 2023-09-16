@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Backup original .bashrc
-#TODO: handle situation when .bak files already exist
 if [ -f ~/.bashrc ]; then
     mv ~/.bashrc ~/.bashrc.bak
 fi
@@ -12,3 +11,6 @@ fi
 # Put new .bashrc in home
 cp ./bashrc ~/.bashrc
 cp ./bash_aliases ~/.bash_aliases
+
+# Open new .bashrc for editing options
+xdg-open ~/.bashrc &

@@ -1,6 +1,5 @@
-# Toumnek's .bashrc ver. 03092023
+# Toumnek's .bashrc
 
-#TODO: extract all option switches to top of this file
 # CONFIG
 # Run neofetch when opening a terminal
 RUN_NEOFETCH=1 # 0
