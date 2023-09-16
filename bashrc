@@ -1,6 +1,8 @@
 # Toumnek's .bashrc ver. 03092023
 
 #TODO: extract all option switches to top of this file
+# CONFIG
+RUN_NEOFETCH=1 # 0
 
 # If not running interactively, return
 case $- in
@@ -71,8 +73,7 @@ fi
 
 # Paths
 EXPORT_PATHS="yes"
-if [ $EXPORT_PATHS = "yes" ]
-then
+if [ $EXPORT_PATHS = "yes" ]; then
 	# Java and Maven
 	export JAVA_HOME="/usr/lib/jvm/jdk-17"
 	export PATH=$JAVA_HOME/bin:$PATH
@@ -82,5 +83,6 @@ fi
 unset EXPORT_PATHS
 
 # Run neofetch
-#TODO: add switch for running neofetch
-neofetch
+if [ $RUN_NEOFETCH -eq 1 ]; then
+	neofetch
+fi
