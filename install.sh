@@ -17,7 +17,7 @@ if [ $INSTALL_BASH_COFIG -eq 1 ]; then
 fi
 unset INSTALL_BASH_COFIG
 
-if [ $INSTALL_NEMO_COFIG -eq 1 ]; then
+if [ $INSTALL_NEMO_COFIG -eq 1 ] && [ -x "$(command -v nemo)" ] ; then
 	if ! [ -d ~/.local/share/nemo/actions/scripts ]; then
 		mkdir -p ~/.local/share/nemo/actions/scripts
 	fi
