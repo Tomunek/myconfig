@@ -30,6 +30,8 @@ alias gps='git push'
 alias gaa='git add --all'
 alias gcm='git commit'
 alias gst='git status'
+alias gss='git status -s'
+alias gdf='git diff'
 
 # Windows-like clear alias
 alias cls='clear'
@@ -78,8 +80,7 @@ cpd(){
 mvd(){
 	mv "$1" "$2" && cd "$2"
 }
-mkdird()
-{
+mkdird(){
 	mkdir -p "$1"
 	cd "$1"
 }
@@ -89,5 +90,9 @@ fail(){
 	return "$1" 
 }
 
-# TODO: git add+commit+push
-
+# git add+commit+push
+gitacp(){
+	git add --all
+	git commit -m "$1"
+	git push
+}
