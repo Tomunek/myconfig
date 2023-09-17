@@ -1,0 +1,9 @@
+[Nemo Action]
+# Calculate file checksums
+Name=Calculate checksums
+Comment=Calculate file checksums
+Exec=<scripts/checksums.sh %F>
+Icon-Name=auth-fingerprint-symbolic
+Selection=s
+Extensions=any;
+EscapeSpaces=true
