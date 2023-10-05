@@ -97,9 +97,10 @@ fi
 # Paths
 if [ $EXPORT_PATHS -eq 1 ]; then
 	# Java and Maven
-	export JAVA_HOME="/usr/lib/jvm/jdk-17"
+	# TODO: add auto finding of latest versions
+	export JAVA_HOME="/usr/lib/jvm/jdk-21-oracle-x64"
 	export PATH=$JAVA_HOME/bin:$PATH
-	export MVN_HOME="/usr/bin/apache-maven-3.9.0"
+	export MVN_HOME="/usr/bin/apache-maven-3.9.5"
 	export PATH=$MVN_HOME/bin:$PATH
 fi
 unset EXPORT_PATHS
