@@ -105,6 +105,9 @@ if [ $EXPORT_PATHS -eq 1 ]; then
 fi
 unset EXPORT_PATHS
 
+# For GPG signing git commits
+export GPG_TTY=$(tty)
+
 # Run neofetch
 if [ $RUN_NEOFETCH -eq 1 ]; then
 	neofetch
