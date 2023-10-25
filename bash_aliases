@@ -31,6 +31,7 @@ alias gaa='git add --all'
 alias gcm='git commit -S -m'
 alias gst='git status'
 alias gss='git status -s'
+alias glg='git log'
 alias gdf='git diff'
 
 # Windows-like clear alias
@@ -93,6 +94,6 @@ fail(){
 # git add+commit+push
 gitacp(){
 	git add --all
-	git commit -m "$1"
+	git commit -m -S "$1"
 	git push
 }

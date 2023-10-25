@@ -11,6 +11,10 @@ FORCE_MONO=0 # 1
 ANEMIC_PROMPT=0 # 1
 # Use shorter, more traditional prompt (only applies to color prompt)
 TRADITIONAL_PROMPT=0 # 1
+# Display current time in prompt
+TIME_IN_PROMPT=0 # 1
+# Display git branch in prompt (if in repo)
+GIT_BRANCH_PROMPT=1 # 0
 
 # If not running interactively, return
 case $- in
@@ -42,6 +46,17 @@ NORMAL="\e[0m"
 
 # Prompt
 INDICATOR="code=\$?; if [ \${code} = 0 ]; then echo \"${GREEN}0${NORMAL}\"; else echo \"${RED}\${code}\a${NORMAL}\"; fi"
+get_git_branch() {
+	BRANCH_NAME=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+	if [ ${#BRANCH_NAME} -ge 1 ] && [ $GIT_BRANCH_PROMPT -eq 1 ]; then 
+		echo "━[${BRANCH_NAME}]"
+	fi
+}
+get_time() {
+	if [ $TIME_IN_PROMPT -eq 1 ]; then 
+		echo "━[\t]"
+	fi
+}
 if [ $ANEMIC_PROMPT -eq 1 ]; then
 	USER_MACHINE="${GREEN}\u${NORMAL}@${GREEN}\h${NORMAL}"
 	CURRENT_PATH="${BLUE}\w${NORMAL}"
@@ -53,7 +68,7 @@ TIME="\t"
 if [ $TRADITIONAL_PROMPT -eq 1 ]; then
 	COLOR_PROMPT="${USER_MACHINE}:${CURRENT_PATH}\$ "
 else
-	COLOR_PROMPT="┏━[${USER_MACHINE}]━[${CURRENT_PATH}]━[${TIME}]━[\`${INDICATOR}\`]\n┗━\\$ "
+	COLOR_PROMPT="┏━[${USER_MACHINE}]\$(get_git_branch)━[${CURRENT_PATH}]$(get_time)━[\`${INDICATOR}\`]\n┗━\\$ "
 fi
 MONO_PROMPT="\u@\h:\w\$ "
 unset TRADITIONAL_PROMPT
