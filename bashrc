@@ -45,7 +45,14 @@ BOLDBLUE="\e[1;34m"
 NORMAL="\e[0m"
 
 # Prompt
-INDICATOR="code=\$?; if [ \${code} = 0 ]; then echo \"${GREEN}0${NORMAL}\"; else echo \"${RED}\${code}\a${NORMAL}\"; fi"
+get_indicator() {
+	code=$?
+	if [ $code -eq 0 ]; then
+		echo -e "━[${GREEN}0${NORMAL}]"
+	else
+		echo -e "━[${RED}${code}${NORMAL}]"
+	fi
+}
 get_git_branch() {
 	BRANCH_NAME=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
 	if [ ${#BRANCH_NAME} -ge 1 ] && [ $GIT_BRANCH_PROMPT -eq 1 ]; then 
@@ -68,7 +75,7 @@ TIME="\t"
 if [ $TRADITIONAL_PROMPT -eq 1 ]; then
 	COLOR_PROMPT="${USER_MACHINE}:${CURRENT_PATH}\$ "
 else
-	COLOR_PROMPT="┏━[${USER_MACHINE}]\$(get_git_branch)━[${CURRENT_PATH}]$(get_time)━[\`${INDICATOR}\`]\n┗━\\$ "
+	COLOR_PROMPT="┏━[${USER_MACHINE}]\$(get_indicator)$(get_time)\$(get_git_branch)━[${CURRENT_PATH}]\n┗━\\$ "
 fi
 MONO_PROMPT="\u@\h:\w\$ "
 unset TRADITIONAL_PROMPT
