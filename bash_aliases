@@ -1,4 +1,4 @@
-# Toumnek's .bashrc aliases
+# Tomunek's .bashrc aliases
 
 # Safety aliases
 alias rm='rm -i'

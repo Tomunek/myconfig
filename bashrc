@@ -1,4 +1,4 @@
-# Toumnek's .bashrc
+# Tomunek's .bashrc
 
 # CONFIG
 # Run neofetch when opening a terminal
