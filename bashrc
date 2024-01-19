@@ -5,6 +5,10 @@
 RUN_NEOFETCH=1 # 0
 # Export paths
 EXPORT_PATHS=1 # 0
+# Sign git commits when using gcm alias
+SIGN_GIT_COMMITS=1 # 0
+
+# PROMPT CONFIG
 # Force monochromatic prompt
 FORCE_MONO=0 # 1
 # Make text in prompt not bold (may look better on some machines)

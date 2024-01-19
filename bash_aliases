@@ -28,7 +28,12 @@ alias home='cd ~/'
 alias gpl='git pull'
 alias gps='git push'
 alias gaa='git add --all'
-alias gcm='git commit -S -m'
+if [ $SIGN_GIT_COMMITS -eq 1 ]; then
+	alias gcm='git commit -S -m'
+else
+	alias gcm='git commit -m'
+fi
+unset SIGN_GIT_COMMITS
 alias gst='git status'
 alias gss='git status -s'
 alias glg='git log'
